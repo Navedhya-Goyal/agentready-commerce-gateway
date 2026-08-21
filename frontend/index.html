@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="AgentReady merchant trust and transaction gateway demo">
+  <title>AgentReady — Commerce Control Plane</title>
+  <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <div class="brand">
+        <span class="brand-mark">A</span>
+        <div><strong>AgentReady</strong><small>Commerce control plane</small></div>
+      </div>
+      <nav aria-label="Main navigation">
+        <button class="nav-item active" data-section="overview">Overview</button>
+        <button class="nav-item" data-section="catalogue">Catalogue readiness</button>
+        <button class="nav-item" data-section="simulator">AI purchase simulator</button>
+        <button class="nav-item" data-section="audit">Audit and safety</button>
+      </nav>
+      <div class="side-note">
+        <span class="dot"></span>
+        Synthetic demonstration
+        <small>No real Razorpay data or payments</small>
+      </div>
+    </aside>
+
+    <main>
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">MERCHANT / DEMO FASHION STORE</p>
+          <h1 id="page-title">Commerce overview</h1>
+        </div>
+        <div class="header-actions">
+          <span class="status-pill">System healthy</span>
+          <button id="refresh-button" class="button secondary">Refresh</button>
+        </div>
+      </header>
+
+      <section id="overview" class="page-section active">
+        <div class="notice"><strong>Transparent demo:</strong> all products, customers and transaction outcomes are synthetic.</div>
+        <div class="metric-grid">
+          <article class="metric-card accent"><span>AI-commerce readiness</span><strong id="readiness-score">—</strong><small>Validated catalogue score</small></article>
+          <article class="metric-card"><span>Products ready</span><strong id="ready-products">—</strong><small>Safe for agent discovery</small></article>
+          <article class="metric-card"><span>Products blocked</span><strong id="blocked-products">—</strong><small>Require merchant review</small></article>
+          <article class="metric-card"><span>Safety violations</span><strong id="issue-count">—</strong><small>Across synthetic records</small></article>
+        </div>
+        <div class="content-grid">
+          <article class="panel span-2">
+            <div class="panel-heading"><div><p class="eyebrow">CONTROL FLOW</p><h2>Intent-to-payment governance</h2></div></div>
+            <div class="flow">
+              <div><span>01</span><strong>Understand</strong><small>Parse customer intent</small></div>
+              <i>→</i><div><span>02</span><strong>Ground</strong><small>Search approved catalogue</small></div>
+              <i>→</i><div><span>03</span><strong>Validate</strong><small>Rules check order truth</small></div>
+              <i>→</i><div><span>04</span><strong>Confirm</strong><small>Human approves action</small></div>
+              <i>→</i><div><span>05</span><strong>Execute</strong><small>Create simulated link</small></div>
+            </div>
+          </article>
+          <article class="panel">
+            <p class="eyebrow">NON-NEGOTIABLE</p><h2>Trust boundaries</h2>
+            <ul class="trust-list">
+              <li>LLM never calculates money</li><li>Database is product truth</li><li>Confirmation is mandatory</li><li>Execution is idempotent</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section id="catalogue" class="page-section">
+        <div class="content-grid">
+          <article class="panel span-2">
+            <div class="panel-heading"><div><p class="eyebrow">QUALITY GATE</p><h2>Catalogue issues</h2></div><button id="manifest-button" class="button secondary">View manifest</button></div>
+            <div id="issues-list" class="issues-list"></div>
+          </article>
+          <article class="panel">
+            <p class="eyebrow">READINESS LOGIC</p><h2>What gets blocked</h2>
+            <p class="muted">Critical and high-severity issues remove a product from the commerce manifest until a merchant reviews the data.</p>
+            <div id="severity-summary" class="severity-summary"></div>
+          </article>
+        </div>
+        <pre id="manifest-output" class="code-panel hidden"></pre>
+      </section>
+
+      <section id="simulator" class="page-section">
+        <div class="simulator-layout">
+          <article class="panel query-panel">
+            <p class="eyebrow">CUSTOMER INTENT</p><h2>Ask the shopping agent</h2>
+            <label for="query-input">Natural-language purchase request</label>
+            <textarea id="query-input" rows="4">Find me black running shoes in size 9 under ₹3,000 for delivery to Bengaluru</textarea>
+            <div class="examples">
+              <button class="example-chip">Blue cotton shirt size M below ₹1,500 in Ujjain</button>
+              <button class="example-chip">Black headphones under ₹6,000 in Mumbai</button>
+              <button class="example-chip danger">Red shoes size 12 below ₹500 in Delhi</button>
+            </div>
+            <button id="search-button" class="button primary full">Analyse request</button>
+            <p id="search-error" class="error-message"></p>
+          </article>
+          <article class="panel result-panel">
+            <div class="panel-heading"><div><p class="eyebrow">GROUNDED RESULT</p><h2>Controlled recommendation</h2></div><span id="workflow-state" class="status-pill neutral">Waiting</span></div>
+            <div id="intent-output" class="intent-output empty">Run a request to see the structured intent and catalogue-grounded products.</div>
+            <div id="product-results" class="product-results"></div>
+            <div id="order-summary" class="order-summary hidden"></div>
+            <div id="execution-actions" class="execution-actions"></div>
+          </article>
+        </div>
+      </section>
+
+      <section id="audit" class="page-section">
+        <div class="content-grid">
+          <article class="panel span-2"><p class="eyebrow">TRACEABILITY</p><h2>Agent activity timeline</h2><div id="audit-timeline" class="timeline"><p class="muted">Complete a simulator flow to populate the audit timeline.</p></div></article>
+          <article class="panel"><p class="eyebrow">SAFETY</p><h2>Policy controls</h2><ul class="trust-list"><li>Maximum 50% offer</li><li>Maximum 10 items</li><li>₹50,000 order ceiling</li><li>Final stock revalidation</li><li>Explicit confirmation gate</li><li>Duplicate action prevention</li></ul></article>
+        </div>
+      </section>
+    </main>
+  </div>
+  <dialog id="confirmation-dialog">
+    <form method="dialog"><p class="eyebrow">HUMAN-IN-THE-LOOP</p><h2>Confirm simulated order</h2><p id="confirmation-copy"></p><div class="dialog-actions"><button value="cancel" class="button secondary">Cancel</button><button id="confirm-order" value="confirm" class="button primary">Confirm and continue</button></div></form>
+  </dialog>
+  <script src="/static/app.js" defer></script>
+</body>
+</html>
+
